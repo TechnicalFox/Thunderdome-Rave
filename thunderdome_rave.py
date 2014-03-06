@@ -26,7 +26,7 @@ class thunderdome_rave(object):
         self.fadeout = 5000
         self.override = override
         mixer.init()
-        mixer.music.load('/home/pi/Documents/ARS.mp3')
+        mixer.music.load('/home/pi/Documents/siren.mp3')
     
     """
     Checks to see if it is ok to play audio due to
