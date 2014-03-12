@@ -10,6 +10,7 @@ This implimentation by TechnicalFox.
 from pygame import mixer
 from time import localtime
 import sys
+import led_controller
 
 """
 Class used to play audio and control lights on a raspberry pi.
@@ -26,7 +27,7 @@ class thunderdome_rave(object):
         self.fadeout = 5000
         self.override = override
         mixer.init()
-        mixer.music.load('/home/pi/Documents/siren.mp3')
+        mixer.music.load('/home/pi/Documents/Thunderdome/siren.mp3')
     
     """
     Checks to see if it is ok to play audio due to
@@ -64,12 +65,16 @@ class thunderdome_rave(object):
     Not yet implimented.
     """
     def power_lights(self):
-        pass
+        ledStrip = led_conroller.led_controller()
+        for i in range(0,20):
+            ledStrip.pulse('blue')
+        
 
 #just some tests I have been using...
-test = thunderdome_rave(True)
-test.play_siren()
-x = raw_input('pause')
-test.stop_siren()
-y = raw_input('pause')
-sys.exit()
+test = thunderdome_rave()
+#test.play_siren()
+#x = raw_input('pause')
+#test.stop_siren()
+#y = raw_input('pause')
+#sys.exit()
+test.power_lights()
