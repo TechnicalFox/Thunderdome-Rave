@@ -54,7 +54,19 @@ class led_controller(object):
                     562,     561,     574,     537,     590,    1661,\
                     578,     538,     594,    1659,     574,    1663,\
                     582,    1671,     587,     532,     569,    1680,\
-                    581] }
+                    581],                                            \
+     'rgbStrobe': [9029,    4448,     616,     505,     584,     545,\
+                    593,     513,     595,     530,     581,     548,\
+                    576,     537,     581,     540,     575,     553,\
+                    571,    1672,     571,    1668,     590,    1668,\
+                    571,    1664,     584,    1658,     587,    1663,\
+                    576,    1658,     576,    1675,     587,     531,\
+                    584,     545,     571,    1667,     583,     544,\
+                    572,     533,     599,     525,     576,     554,\
+                    578,     535,     594,    1658,     573,    1662,\
+                    584,     546,     593,    1641,     582,    1660,\
+                    592,    1670,     569,    1662,     585,    1656,\
+                    604] }
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.pin, GPIO.OUT)
         self.microSecond = 0.000001
@@ -79,9 +91,16 @@ class led_controller(object):
 
             GPIO.output(self.pin, GPIO.HIGH)
 
-
 x = led_controller(12)
 for i in range(20):
     x.pulse('blue')
+GPIO.cleanup()
+
+#time.sleep(5)
+
+#x = led_controller(12)
+#for i in range(20):
+#    x.pulse('power')
+#GPIO.cleanup()
 
 sys.exit()

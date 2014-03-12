@@ -8,9 +8,10 @@ This implimentation by TechnicalFox.
 """
 
 from pygame import mixer
-from time import localtime
+import time
 import sys
-import led_controller
+import RPi.GPIO as GPIO
+import led_controller as lights
 
 """
 Class used to play audio and control lights on a raspberry pi.
@@ -27,7 +28,7 @@ class thunderdome_rave(object):
         self.fadeout = 5000
         self.override = override
         mixer.init()
-        mixer.music.load('/home/pi/Documents/Thunderdome/siren.mp3')
+        mixer.music.load('/home/pi/Files/Thunderdome/siren.mp3')
     
     """
     Checks to see if it is ok to play audio due to
@@ -35,7 +36,7 @@ class thunderdome_rave(object):
     """
     def can_play(self):
         answer = True
-        hour = localtime().tm_hour
+        hour = time.localtime().tm_hour
         if hour < 8 or hour > 22: answer = False
         if self.buisy == True: answer = False
         return answer
@@ -59,22 +60,28 @@ class thunderdome_rave(object):
             self.buisy = False
 
     """
-    Uses GPIO pins to power on relay, allowing power to
-    spinning lights for a designated period of time.
-
-    Not yet implimented.
+    Uses GPIO pins to power on an led strip to blink
+    rgb colours.
     """
     def power_lights(self):
-        ledStrip = led_conroller.led_controller()
-        for i in range(0,20):
-            ledStrip.pulse('blue')
+        print('on')
+        x = lights.led_controller(12)
+        for i in range(20):
+            x.pulse('rgbStrobe')
+        GPIO.cleanup()
+
+    """
+    Uses GPIO pins to power off an led strip.
+    """
+    def kill_lights(self):
+        print('off')
+        x = lights.led_controller(12)
+        for i in range(20):
+            x.pulse('power')
+        GPIO.cleanup()
         
 
-#just some tests I have been using...
 test = thunderdome_rave()
-#test.play_siren()
-#x = raw_input('pause')
-#test.stop_siren()
-#y = raw_input('pause')
-#sys.exit()
-test.power_lights()
+#test.power_lights()
+#time.sleep(10)
+test.kill_lights()
