@@ -22,10 +22,9 @@ class thunderdome_rave(object):
     Sets variables, initialises the mixer, and
     loads in an audio file.
     """
-    def __init__(self, pin, override=False):
+    def __init__(self, pin):
         self.buisy = False
         self.fadeout = 5000
-        self.override = override
         mixer.init()
         mixer.music.load('/home/pi/Files/Thunderdome/siren.mp3')
     
@@ -99,8 +98,8 @@ class thunderdome_rave(object):
     Plays the audio file specified in __init__.
     Checks with can_play first.
     """
-    def play_siren(self):
-        if self.can_play() or self.override:
+    def play_siren(self, override=False):
+        if self.can_play() or override:
             mixer.music.play()
             self.buisy = True
 
@@ -129,7 +128,7 @@ def start_thunderdome_rave(sleepTime, debug=False):
     GPIO.cleanup()
     
     if debug: print('\nstart siren')
-    rgb.play_siren()
+    rgb.play_siren(debug)
     
     if debug: print('\nsleeping for: ' + str(sleepTime))
     for i in range(sleepTime):
@@ -147,4 +146,10 @@ def start_thunderdome_rave(sleepTime, debug=False):
     
     sys.exit()
 
-start_thunderdome_rave(30, True)
+if __name__ == "__main__":
+    try:
+        if len(sys.argv) <= 2: start_thunderdome_rave(sys.argv[1], sys.argv[2])
+        else: start_thunderdome_rave(sys.argv[1])
+    except IndexError:
+        print('You need to specify a sleep time in seconds.')
+        sys.exit()
