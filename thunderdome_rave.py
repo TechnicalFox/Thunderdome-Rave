@@ -130,10 +130,12 @@ def start_thunderdome_rave(sleepTime, debug=False):
     if debug: print('\nstart siren')
     rgb.play_siren(debug)
     
-    if debug: print('\nsleeping for: ' + str(sleepTime))
-    for i in range(sleepTime):
-        if debug: print('sleep: ' + str(i+1))
-        time.sleep(1)
+    if debug:
+        print('\nsleeping for: ' + str(sleepTime))
+        for i in range(sleepTime):
+            if debug: print('sleep: ' + str(i+1))
+            time.sleep(1)
+    else: time.sleep(sleepTime)
     
     if debug: print('\nkill siren')
     rgb.stop_siren()
