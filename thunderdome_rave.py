@@ -90,8 +90,7 @@ class thunderdome_rave(object):
     def can_play(self):
         answer = True
         hour = time.localtime().tm_hour
-        if hour < 8 or hour > 22: answer = False
-        if self.buisy: answer = False
+        if hour < 8 or hour > 22 or self.buisy: answer = False
         return answer
     
     """
