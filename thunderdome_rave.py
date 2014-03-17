@@ -148,8 +148,8 @@ def start_thunderdome_rave(sleepTime, debug=False):
 
 if __name__ == "__main__":
     try:
-        if len(sys.argv) <= 2: start_thunderdome_rave(sys.argv[1], sys.argv[2])
-        else: start_thunderdome_rave(sys.argv[1])
+        if len(sys.argv) >= 2: start_thunderdome_rave(int(sys.argv[1]), bool(sys.argv[2]))
+        else: start_thunderdome_rave(int(sys.argv[1]))
     except IndexError:
         print('You need to specify a sleep time in seconds.')
         sys.exit()
