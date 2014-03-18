@@ -26,7 +26,7 @@ class thunderdome_rave(object):
         self.buisy = False
         self.fadeout = 5000
         mixer.init()
-        mixer.music.load('/home/pi/Files/Thunderdome/siren.mp3')
+        mixer.music.load('siren.mp3')
     
         self.pin = pin
         self.commandDict = {                                         \
