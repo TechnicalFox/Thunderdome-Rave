@@ -116,7 +116,18 @@ class thunderdome_rave(object):
 ##################################
 
 """
-Starts the thunderdome rave.
+Starts the thunderdome rave, and stops it after
+a certain period of time, specified in seconds.
+----------------------------
+Can be invoked using:
+
+sudo python thunderdome_rave.py SLEEPTIME DEBUG
+
+SLEEPTIME -> integer; time to keep alive in seconds
+DEBUG -> boolean; override time restrictions for 
+         siren and print current actions in terminal,
+         you can leave this arg blank as it defaults
+         to false
 """
 def start_thunderdome_rave(sleepTime, debug=False):
     
@@ -139,8 +150,21 @@ def start_thunderdome_rave(sleepTime, debug=False):
     if debug: print('\nkill siren')
     rgb.stop_siren()
     
-    power = thunderdome_rave(12)
     if debug: print('\npower')
+    kill_lights()
+
+"""
+Seperate kill lights finction to allow for emergency
+call of kill_lights without the start_thunderdome_rave
+function being involved.
+----------------------------
+Can be invoked using:
+
+sudo python thunderdome_rave.py kill
+"""
+def kill_lights():
+    
+    power = thunderdome_rave(12)
     for i in range(5):
         power.pulse('power')
     GPIO.cleanup()
@@ -149,7 +173,8 @@ def start_thunderdome_rave(sleepTime, debug=False):
 
 if __name__ == "__main__":
     try:
-        if len(sys.argv) <= 2: start_thunderdome_rave(int(sys.argv[1]))
+        if sys.argv[1] == 'kill': kill_lights()
+        elif len(sys.argv) <= 2: start_thunderdome_rave(int(sys.argv[1]))
         else: start_thunderdome_rave(int(sys.argv[1]), bool(sys.argv[2]))
     except IndexError:
         print('You need to specify a sleep time in seconds.')
