@@ -171,6 +171,10 @@ def kill_lights():
     
     sys.exit()
 
+"""
+Main function that handles the command line args and
+calls the helper functions to use the thunderdome_rave class.
+"""
 if __name__ == "__main__":
     try:
         if sys.argv[1] == 'kill': kill_lights()
