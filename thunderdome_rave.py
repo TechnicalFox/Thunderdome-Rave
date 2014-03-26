@@ -4,7 +4,7 @@ Project Thunderdome: Sound & Lights
 Objective: controll flashing/spinning lights and some speakers with
 a raspberry pi
 
-This implimentation by TechnicalFox.
+This implementation by TechnicalFox.
 """
 
 from pygame import mixer
