@@ -180,6 +180,4 @@ if __name__ == "__main__":
         if sys.argv[1] == 'kill': kill_lights()
         elif len(sys.argv) <= 2: start_thunderdome_rave(int(sys.argv[1]))
         else: start_thunderdome_rave(int(sys.argv[1]), bool(sys.argv[2]))
-    except IndexError:
-        print('You need to specify a sleep time in seconds.')
-        sys.exit()
+    except IndexError: sys.exit("You need to specify a sleep time in seconds.")
